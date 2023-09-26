@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Service.Interface;
 using Services.Dto;
 using Services.Entity;
@@ -7,9 +8,11 @@ namespace Service
 {
     public class ContactService : IContactService
     {
+        private readonly ILogger<ContactService> _logger;
         private ApplicationDbContext _dbContext;
-        public ContactService(ApplicationDbContext dbContext)
+        public ContactService(ApplicationDbContext dbContext, ILogger<ContactService> logger)
         {
+            _logger = logger;
             _dbContext = dbContext;
         }
 
@@ -36,6 +39,7 @@ namespace Service
                 };
                 emailDtos.Add(emailDto);
             }
+
             var contactDto = new ContactDto
             {
                 Id = contact.Id,

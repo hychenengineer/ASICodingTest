@@ -48,7 +48,7 @@ namespace ASICodingTest.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ContactDto>> Delete(long id, [FromBody] ContactDto dto)
+        public async Task<ActionResult<ContactDto>> Delete(long id)
         {
             await _contactService.DeleteContactAsyncById(id).ConfigureAwait(false);
             return Ok();
@@ -64,7 +64,7 @@ namespace ASICodingTest.Controllers
 
             if (searchResults == null)
             {
-                return NotFound("No matching contacts found.");
+                return NotFound();
             }
 
             return Ok(searchResults);
